@@ -27,7 +27,7 @@ const FadeIn = ({ children, delay = 0, className = "" }: { children: React.React
 export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [heroImage, setHeroImage] = useState(import.meta.env.BASE_URL + '8.jpg');
+  const [heroImage, setHeroImage] = useState(import.meta.env.BASE_URL + '8.png');
   
   const { scrollY } = useScroll();
   const heroOpacity = useTransform(scrollY, [0, 500], [1, 0]);
@@ -50,7 +50,7 @@ export default function App() {
           return;
         }
 
-        const response = await fetch(import.meta.env.BASE_URL + '8.jpg');
+        const response = await fetch(import.meta.env.BASE_URL + '8.png');
         const blob = await response.blob();
         const reader = new FileReader();
         
@@ -71,7 +71,7 @@ export default function App() {
               {
                 inlineData: {
                   data: base64Data,
-                  mimeType: blob.type || 'image/jpeg',
+                  mimeType: blob.type || 'image/png',
                 },
               },
               {
