@@ -26,7 +26,7 @@ const FadeIn = ({ children, delay = 0, className = "" }: { children: React.React
 
 export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [heroImage, setHeroImage] = useState('/8.jpg');
+  const [heroImage, setHeroImage] = useState(import.meta.env.BASE_URL + '8.jpg');
   
   const { scrollY } = useScroll();
   const heroOpacity = useTransform(scrollY, [0, 500], [1, 0]);
@@ -49,7 +49,7 @@ export default function App() {
           return;
         }
 
-        const response = await fetch('/8.jpg');
+        const response = await fetch(import.meta.env.BASE_URL + '8.jpg');
         const blob = await response.blob();
         const reader = new FileReader();
         
@@ -181,7 +181,7 @@ export default function App() {
           {/* Featured Item 1 */}
           <div className="group cursor-pointer">
             <FadeIn>
-              <VideoPlayer src="/6.mp4" poster="/쯧.jpg" />
+              <VideoPlayer src={import.meta.env.BASE_URL + '6.mp4'} poster={import.meta.env.BASE_URL + '쯧.jpg'} />
             </FadeIn>
             <FadeIn delay={0.2} className="mt-8 flex justify-between items-start">
               <div>
@@ -196,7 +196,7 @@ export default function App() {
           <div className="group cursor-pointer">
             <FadeIn>
               <VideoPlayer 
-                src="/KakaoTalk_20260302_015844975.mp4" 
+                src={import.meta.env.BASE_URL + 'KakaoTalk_20260302_015844975.mp4'}
                 thumbnailTime={16}
               />
             </FadeIn>
