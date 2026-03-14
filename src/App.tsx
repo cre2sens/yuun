@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
-import { ArrowRight, Mail, Instagram, Play, Sparkles, Loader2 } from 'lucide-react';
+import { ArrowRight, Mail, Instagram, Play, Sparkles, Loader2, Menu, X } from 'lucide-react';
 import { GoogleGenAI } from '@google/genai';
 import { get, set } from 'idb-keyval';
 import { VideoPlayer } from './components/VideoPlayer';
@@ -26,6 +26,7 @@ const FadeIn = ({ children, delay = 0, className = "" }: { children: React.React
 
 export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [heroImage, setHeroImage] = useState(import.meta.env.BASE_URL + '8.jpg');
   
   const { scrollY } = useScroll();
@@ -102,13 +103,31 @@ export default function App() {
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-white/80 backdrop-blur-md border-b border-neutral-100 py-4' : 'bg-transparent py-6'}`}>
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
           <a href="#" className="text-lg font-semibold tracking-tight text-neutral-800">STUDIO.</a>
+          {/* Desktop menu */}
           <div className="hidden md:flex space-x-8 text-sm font-medium text-neutral-600">
             <a href="#featured" className="hover:text-neutral-900 transition-colors">Featured</a>
             <a href="#portfolio" className="hover:text-neutral-900 transition-colors">Portfolio</a>
             <a href="#about" className="hover:text-neutral-900 transition-colors">About</a>
             <a href="#contact" className="hover:text-neutral-900 transition-colors">Contact</a>
           </div>
+          {/* Mobile hamburger button */}
+          <button
+            className="md:hidden p-2 text-neutral-800"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
+        {/* Mobile menu dropdown */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden bg-white/95 backdrop-blur-md border-t border-neutral-100 px-6 py-4 flex flex-col space-y-4 text-sm font-medium text-neutral-600">
+            <a href="#featured" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-neutral-900 transition-colors py-1">Featured</a>
+            <a href="#portfolio" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-neutral-900 transition-colors py-1">Portfolio</a>
+            <a href="#about" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-neutral-900 transition-colors py-1">About</a>
+            <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-neutral-900 transition-colors py-1">Contact</a>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
